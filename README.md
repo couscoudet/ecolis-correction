@@ -1,3 +1,0 @@
-# ecoliss-business
-
-ecoliss-business
