@@ -18,9 +18,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
 
 import eu.fr.indyli.formation.business.config.EcolisBusinessConfig;
-import eu.fr.indyli.formation.business.dao.IAnnonceDAO;
+import eu.fr.indyli.formation.business.dao.IEcolisAdvertisingDAO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
-import eu.fr.indyli.formation.business.entity.Annonce;
+import eu.fr.indyli.formation.business.entity.EcolisAdvertising;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesDAO;
 
 @RunWith(SpringRunner.class)
@@ -33,12 +33,12 @@ public class AnnonceDAOTest {
 	private EntityManager entityManager;
 
 	@Resource(name = EcolisConstantesDAO.ANNONCE_DAO_KEY)
-	private IAnnonceDAO annonceRepository;
+	private IEcolisAdvertisingDAO annonceRepository;
 
 
 	@Test
 	public void testFindAllWithSuccess() throws EcolisBusinessException {
-		List<Annonce> aList = annonceRepository.findAll();
+		List<EcolisAdvertising> aList = annonceRepository.findAll();
 		Assert.assertTrue(!CollectionUtils.isEmpty(aList));
 	}
 
@@ -48,7 +48,7 @@ public class AnnonceDAOTest {
 		String departureTown = "Paris";
 		
 		//When
-		List<Annonce> aList = annonceRepository.findByVilleDepartContaining(departureTown);
+		List<EcolisAdvertising> aList = annonceRepository.findByVilleDepartContaining(departureTown);
 		
 		//Then
 		Assert.assertTrue(!CollectionUtils.isEmpty(aList));
@@ -58,16 +58,16 @@ public class AnnonceDAOTest {
 	public void testUpdateDoublePrimeAnnonceWithSuccess() throws EcolisBusinessException {
 		//Given
 		String departureTown = "Paris";
-		List<Annonce> aListBefore = annonceRepository.findByVilleDepartContaining(departureTown);
+		List<EcolisAdvertising> aListBefore = annonceRepository.findByVilleDepartContaining(departureTown);
 		
 		//When
 		annonceRepository.setPrimeForSomeDeparture(departureTown);
 		entityManager.clear();
 		
 		//Then
-		List<Annonce> aListAfter = annonceRepository.findByVilleDepartContaining(departureTown);
-		for (Annonce anAfter : aListAfter) {
-			for (Annonce anBefore : aListBefore) {
+		List<EcolisAdvertising> aListAfter = annonceRepository.findByVilleDepartContaining(departureTown);
+		for (EcolisAdvertising anAfter : aListAfter) {
+			for (EcolisAdvertising anBefore : aListBefore) {
 				if (anAfter.getId().equals(anBefore.getId())) {
 					Assert.assertTrue(anAfter.getPrime() == anBefore.getPrime() * 2);
 				}

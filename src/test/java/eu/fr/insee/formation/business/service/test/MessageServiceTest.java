@@ -12,10 +12,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
 import eu.fr.indyli.formation.business.config.EcolisBusinessConfig;
-import eu.fr.indyli.formation.business.dto.MessageFullDTO;
+import eu.fr.indyli.formation.business.dto.EcolisMessageFullDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
-import eu.fr.indyli.formation.business.ecolis.service.IMessageService;
-import eu.fr.indyli.formation.business.entity.Message;
+import eu.fr.indyli.formation.business.ecolis.service.IEcolisMessageService;
+import eu.fr.indyli.formation.business.entity.EcolisMessage;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesService;
 
 @RunWith(SpringRunner.class)
@@ -25,19 +25,19 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesSe
 public class MessageServiceTest {
 
 	  @Resource(name = EcolisConstantesService.MESSAGE_SERVICE_KEY)
-	  public IMessageService msgServiceAvecAnnonce;
+	  public IEcolisMessageService msgServiceAvecAnnonce;
 	
 	  @Resource(name = EcolisConstantesService.MESSAGE_SANS_ANN_SERVICE_KEY)
-	  public IMessageService msgServiceSansAnnonce;
+	  public IEcolisMessageService msgServiceSansAnnonce;
 	  
-	  public IMessageService messageService;
+	  public IEcolisMessageService ecolisMessageService;
 	
 	  @Test 
 	  public void testRecupAllMessage() {
-		messageService = this.msgServiceAvecAnnonce;  
-	    List<MessageFullDTO> msgList = this.messageService.findAllFull();
+		ecolisMessageService = this.msgServiceAvecAnnonce;  
+	    List<EcolisMessageFullDTO> msgList = this.ecolisMessageService.findAllFull();
 	    
-	    for (MessageFullDTO message : msgList) {
+	    for (EcolisMessageFullDTO message : msgList) {
 	      Assert.assertTrue(message.getAnnouncement() != null);
 	    }
 	    
@@ -52,9 +52,9 @@ public class MessageServiceTest {
 	
 	  @Test
 	  public void testRecupAllMessageByEmailId() throws EcolisBusinessException {
-	    List<Message> msgList = this.msgServiceAvecAnnonce.getMessageByEmailUser("czome@yahoo.fr");
-	    for (Message message : msgList) {
-	      System.out.println(message);
+	    List<EcolisMessage> msgList = this.msgServiceAvecAnnonce.getMessageByEmailUser("czome@yahoo.fr");
+	    for (EcolisMessage ecolisMessage : msgList) {
+	      System.out.println(ecolisMessage);
 	    }
 	    Assert.assertTrue(!CollectionUtils.isEmpty(msgList));
 	  }

@@ -1,0 +1,25 @@
+spring:
+  main:
+    banner-mode: off
+
+  datasource:
+    jdbc-url: jdbc:mysql://localhost:3306/bd_colis_esic?useSSL=false
+    username: root
+    password: Indyli@2023
+    testWhileIdle: true
+    validationQuery: SELECT 1
+
+  jpa:
+    database: default
+    properties:
+      hibernate:
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQL5Dialect
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+logging:
+  level:
+    root: DEBUG
+    org.springframework: DEBUG
+    org.hibernate: ERROR

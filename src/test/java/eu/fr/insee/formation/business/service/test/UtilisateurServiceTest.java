@@ -20,11 +20,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import eu.fr.indyli.formation.business.config.EcolisBusinessConfig;
-import eu.fr.indyli.formation.business.dto.UtilisateurBasicDTO;
-import eu.fr.indyli.formation.business.dto.UtilisateurFullDTO;
+import eu.fr.indyli.formation.business.dto.EcolisUserBasicDTO;
+import eu.fr.indyli.formation.business.dto.EcolisUserFullDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
-import eu.fr.indyli.formation.business.ecolis.service.IUtilisateurService;
-import eu.fr.indyli.formation.business.entity.Utilisateur;
+import eu.fr.indyli.formation.business.ecolis.service.IEcolisUserService;
+import eu.fr.indyli.formation.business.entity.EcolisUser;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesService;
 
 @RunWith(SpringRunner.class)
@@ -34,7 +34,7 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesSe
 public class UtilisateurServiceTest {
 
 	@Resource(name = EcolisConstantesService.USER_SERVICE_KEY)
-    IUtilisateurService userService;
+    IEcolisUserService userService;
 	
 	private Integer userIdForAllTest = null;
 	private Integer createUserId = null;
@@ -43,7 +43,7 @@ public class UtilisateurServiceTest {
 	
 	@Test
 	public void createUserId() throws EcolisBusinessException {
-		UtilisateurFullDTO user = new UtilisateurFullDTO();
+		EcolisUserFullDTO user = new EcolisUserFullDTO();
 		bcryptEncoder = new BCryptPasswordEncoder();
 		
 		user.setName("Abdou Zoyim Loti");
@@ -66,7 +66,7 @@ public class UtilisateurServiceTest {
 	public void testFindAllUserWithSuccess() {
 		// Given
 		// When
-		List<UtilisateurBasicDTO> emps = this.userService.findAll();
+		List<EcolisUserBasicDTO> emps = this.userService.findAll();
 		// Then
 		Assert.assertTrue(emps.size() > 0);
 	}
@@ -76,7 +76,7 @@ public class UtilisateurServiceTest {
 		// Given
 		Integer userId = this.userIdForAllTest;
 		// When
-		UtilisateurFullDTO user = this.userService.findById(userId);
+		EcolisUserFullDTO user = this.userService.findById(userId);
 		// Then
 		Assert.assertTrue(user.getId() == userId);
 	}
@@ -84,11 +84,11 @@ public class UtilisateurServiceTest {
 	@Test
 	public void testUpdateUser() throws AccessDeniedException, EcolisBusinessException {
 		// Given
-		UtilisateurFullDTO user = this.userService.findById(this.userIdForAllTest);
+		EcolisUserFullDTO user = this.userService.findById(this.userIdForAllTest);
 		user.setPhone("06854263985");
 		// When
 		this.userService.update(user);
-		UtilisateurFullDTO clientUpdate = this.userService.findById(this.userIdForAllTest);
+		EcolisUserFullDTO clientUpdate = this.userService.findById(this.userIdForAllTest);
 		// Then
 
 		Assert.assertTrue(clientUpdate.getPhone() == "06854263985");
@@ -101,7 +101,7 @@ public class UtilisateurServiceTest {
 		this.userIdForAllTest = null;
 		// Whens
 		this.userService.deleteById(userId);
-		UtilisateurFullDTO user = this.userService.findById(userId);
+		EcolisUserFullDTO user = this.userService.findById(userId);
 
 		// Then
 		Assert.assertNull(user);
@@ -111,15 +111,15 @@ public class UtilisateurServiceTest {
 	@Test
 	public void testGetUserByEmail() throws EcolisBusinessException{
 		 //Recuperation par email
-        Utilisateur utilisateur = userService.findByEmail("emmanuel.macron@gouv.fr");
-        System.out.println("User authentifié :" + utilisateur);
-        Assert.assertTrue(utilisateur != null);
+        EcolisUser ecolisUser = userService.findByEmail("emmanuel.macron@gouv.fr");
+        System.out.println("User authentifié :" + ecolisUser);
+        Assert.assertTrue(ecolisUser != null);
 	}
 	
 	@Before
 	public void prepareAllEntityBefore() throws EcolisBusinessException {
 		bcryptEncoder = new BCryptPasswordEncoder();
-		UtilisateurFullDTO user = new UtilisateurFullDTO();
+		EcolisUserFullDTO user = new EcolisUserFullDTO();
 		user.setName("Abdou Zoyim Loti");
 		user.setCivility("1");
 		user.setEmail("abdou.zoyim@indyli-services.com");

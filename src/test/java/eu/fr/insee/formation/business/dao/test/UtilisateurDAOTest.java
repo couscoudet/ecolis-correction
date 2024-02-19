@@ -23,10 +23,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
 
 import eu.fr.indyli.formation.business.config.EcolisBusinessConfig;
-import eu.fr.indyli.formation.business.dao.IUtilisateurDAO;
-import eu.fr.indyli.formation.business.dto.UtilisateurAnnonceDTO;
+import eu.fr.indyli.formation.business.dao.IEcolisUserDAO;
+import eu.fr.indyli.formation.business.dto.EcolisUserAdvertisingDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
-import eu.fr.indyli.formation.business.entity.Utilisateur;
+import eu.fr.indyli.formation.business.entity.EcolisUser;
 import eu.fr.indyli.formation.business.utils.DateUtils;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesDAO;
 
@@ -37,7 +37,7 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesDA
 public class UtilisateurDAOTest {
 
 	@Resource(name = EcolisConstantesDAO.USER_DAO_KEY)
-	private IUtilisateurDAO userRepository;
+	private IEcolisUserDAO userRepository;
 
 	//@Autowired
 	private BCryptPasswordEncoder bcryptEncoder;
@@ -53,11 +53,11 @@ public class UtilisateurDAOTest {
 	  public void testEncryptAllPassword() {
 	    bcryptEncoder = new BCryptPasswordEncoder();
 
-	    List<Utilisateur> listUser = this.userRepository.findAll();
-	    for (Utilisateur utilisateur : listUser) {
-	      String encryptPassword = bcryptEncoder.encode(utilisateur.getLogin());
-	      utilisateur.setPassword(encryptPassword);
-	      this.userRepository.saveAndFlush(utilisateur);
+	    List<EcolisUser> listUser = this.userRepository.findAll();
+	    for (EcolisUser ecolisUser : listUser) {
+	      String encryptPassword = bcryptEncoder.encode(ecolisUser.getLogin());
+	      ecolisUser.setPassword(encryptPassword);
+	      this.userRepository.saveAndFlush(ecolisUser);
 	    }
 	  }
 
@@ -65,11 +65,11 @@ public class UtilisateurDAOTest {
 	  @Rollback(true)
 	  public void testDecryptAllPassword() {
 	    bcryptEncoder = new BCryptPasswordEncoder();
-	    List<Utilisateur> listUser = this.userRepository.findAll();
-	    for (Utilisateur utilisateur : listUser) {
+	    List<EcolisUser> listUser = this.userRepository.findAll();
+	    for (EcolisUser ecolisUser : listUser) {
 	      // String encryptPassword = bcryptEncoder.de(utilisateur.getLogin());
-	      utilisateur.setPassword(utilisateur.getLogin());
-	      this.userRepository.saveAndFlush(utilisateur);
+	      ecolisUser.setPassword(ecolisUser.getLogin());
+	      this.userRepository.saveAndFlush(ecolisUser);
 	    }
 	  }
 	  
@@ -77,23 +77,23 @@ public class UtilisateurDAOTest {
 		public void createUser() {
 		  
 		  	bcryptEncoder = new BCryptPasswordEncoder();
-			Utilisateur utilisateur = new Utilisateur();
+			EcolisUser ecolisUser = new EcolisUser();
 			
-			utilisateur.setName("Abdou Zoyim Loti");
-			utilisateur.setCivility("1");
-			utilisateur.setEmail("abdou.loti@indyli-services.com");
-			utilisateur.setEnabled((byte) 1);
-			utilisateur.setLastConnection(new Date());
-			utilisateur.setYearOfBirth(1992);
-			utilisateur.setPhone("0398521647");
-			utilisateur.setRegistrationDate(new Date());
-			utilisateur.setLogin("loti");
+			ecolisUser.setName("Abdou Zoyim Loti");
+			ecolisUser.setCivility("1");
+			ecolisUser.setEmail("abdou.loti@indyli-services.com");
+			ecolisUser.setEnabled((byte) 1);
+			ecolisUser.setLastConnection(new Date());
+			ecolisUser.setYearOfBirth(1992);
+			ecolisUser.setPhone("0398521647");
+			ecolisUser.setRegistrationDate(new Date());
+			ecolisUser.setLogin("loti");
 			String encryptPassword = bcryptEncoder.encode("1234");
-			utilisateur.setPassword(encryptPassword);
+			ecolisUser.setPassword(encryptPassword);
 			
-			utilisateur = this.userRepository.saveAndFlush(utilisateur);
+			ecolisUser = this.userRepository.saveAndFlush(ecolisUser);
 			
-			this.createUserId = utilisateur.getId();
+			this.createUserId = ecolisUser.getId();
 		}
 	  
 	  @Test
@@ -101,9 +101,9 @@ public class UtilisateurDAOTest {
 		// Given
 		Integer userId = this.userIdForAllTest;
 		// When
-		Utilisateur utilisateur = this.userRepository.findById(userId).orElse(null);
+		EcolisUser ecolisUser = this.userRepository.findById(userId).orElse(null);
 		// Then
-		Assert.assertTrue(utilisateur.getId() == userId);
+		Assert.assertTrue(ecolisUser.getId() == userId);
 	  }
 	  
 	  @Test
@@ -111,9 +111,9 @@ public class UtilisateurDAOTest {
 		// Given
 		String userName = this.userNameAllTest;
 		// When
-		Utilisateur utilisateur = this.userRepository.findByName(userName);
+		EcolisUser ecolisUser = this.userRepository.findByName(userName);
 		// Then
-		Assert.assertTrue(utilisateur.getName() == userName);
+		Assert.assertTrue(ecolisUser.getName() == userName);
 	  }
 
 
@@ -123,9 +123,9 @@ public class UtilisateurDAOTest {
 		// Given
 		String userEmail = this.userEmailAllTest;
 	    // Recuperation par email
-	    Utilisateur utilisateur = this.userRepository.findByEmail("abdou.zoyim@indyli-services.com");
+	    EcolisUser ecolisUser = this.userRepository.findByEmail("abdou.zoyim@indyli-services.com");
 	    //System.out.println("User authentifié :" + user);
-	    Assert.assertTrue(utilisateur.getEmail() == userEmail);
+	    Assert.assertTrue(ecolisUser.getEmail() == userEmail);
 	    //Assert.assertTrue(user != null);
 	  }
 
@@ -134,29 +134,29 @@ public class UtilisateurDAOTest {
 	    bcryptEncoder = new BCryptPasswordEncoder();
 	    String login = "ema";
 	    //String password = "macron";
-	    Utilisateur utilisateur =
+	    EcolisUser ecolisUser =
 	        userRepository.findByLogin(login);
 	    //$2a$10$LAvLA6jALgwY79MIHSwdnOX9UG1M4YhYrTWOAhT04cinf/Bk8O/AC
 	    // Assert.
-	    Assert.assertTrue(utilisateur != null);
+	    Assert.assertTrue(ecolisUser != null);
 	  }
 
 	  @Test
 	  public void testGetCommentAuthorByDateAndArrivalTown() {
 	    Date datePivot = DateUtils.stringToDate("04/07/2015");
-	    List<Utilisateur> liste =
+	    List<EcolisUser> liste =
 	        this.userRepository.findAuthorsCommentByDateAndPostedAnnonce(datePivot, "Douala");
-	    for (Utilisateur utilisateur : liste) {
-	      System.out.println(utilisateur);
+	    for (EcolisUser ecolisUser : liste) {
+	      System.out.println(ecolisUser);
 	    }
 	    Assert.assertTrue(!CollectionUtils.isEmpty(liste));
 	  }
 
 	  @Test
 	  public void testGetAllUserAvecAnnonces() throws EcolisBusinessException {
-	    List<UtilisateurAnnonceDTO> liste = this.userRepository.getAllUtilisateurAvecAnnonces();
-	    for (UtilisateurAnnonceDTO utilisateurAnnonceDTO : liste) {
-	      System.out.println(utilisateurAnnonceDTO);
+	    List<EcolisUserAdvertisingDTO> liste = this.userRepository.getAllUtilisateurAvecAnnonces();
+	    for (EcolisUserAdvertisingDTO ecolisUserAdvertisingDTO : liste) {
+	      System.out.println(ecolisUserAdvertisingDTO);
 	    }
 	    Assert.assertTrue(!CollectionUtils.isEmpty(liste));
 	  }
@@ -164,7 +164,7 @@ public class UtilisateurDAOTest {
 	  @Test
 	  public void testGetUserParDomaine() throws EcolisBusinessException {
 	    // Recuperation par email
-	    List<Utilisateur> userList = userRepository.getUtilisateurParDomaineEtPossedantTel("com");
+	    List<EcolisUser> userList = userRepository.getUtilisateurParDomaineEtPossedantTel("com");
 	    System.out.println("User authentifié :" + userList);
 	    Assert.assertTrue(!CollectionUtils.isEmpty(userList));
 	  }
@@ -172,24 +172,24 @@ public class UtilisateurDAOTest {
 	  @Before
 		public void prepareAllEntityBefore() throws EcolisBusinessException {
 		  bcryptEncoder = new BCryptPasswordEncoder();
-			Utilisateur utilisateur = new Utilisateur();
+			EcolisUser ecolisUser = new EcolisUser();
 			
-			utilisateur.setName("Abdou Zoyim Loti");
-			utilisateur.setCivility("1");
-			utilisateur.setEmail("abdou.zoyim@indyli-services.com");
-			utilisateur.setEnabled((byte) 1);
-			utilisateur.setLastConnection(new Date());
-			utilisateur.setYearOfBirth(1992);
-			utilisateur.setPhone("0398521647");
-			utilisateur.setRegistrationDate(new Date());
-			utilisateur.setLogin("loti");
+			ecolisUser.setName("Abdou Zoyim Loti");
+			ecolisUser.setCivility("1");
+			ecolisUser.setEmail("abdou.zoyim@indyli-services.com");
+			ecolisUser.setEnabled((byte) 1);
+			ecolisUser.setLastConnection(new Date());
+			ecolisUser.setYearOfBirth(1992);
+			ecolisUser.setPhone("0398521647");
+			ecolisUser.setRegistrationDate(new Date());
+			ecolisUser.setLogin("loti");
 			String encryptPassword = bcryptEncoder.encode("1234");
-			utilisateur.setPassword(encryptPassword);
+			ecolisUser.setPassword(encryptPassword);
 			
-			utilisateur = userRepository.save(utilisateur);
-			this.userIdForAllTest = utilisateur.getId();
-			this.userEmailAllTest = utilisateur.getEmail();
-			this.userNameAllTest = utilisateur.getName();
+			ecolisUser = userRepository.save(ecolisUser);
+			this.userIdForAllTest = ecolisUser.getId();
+			this.userEmailAllTest = ecolisUser.getEmail();
+			this.userNameAllTest = ecolisUser.getName();
 		} 
 		
 		@After

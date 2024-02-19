@@ -13,10 +13,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.Transactional;
 
-import eu.fr.indyli.formation.business.dao.IAlerteDAO;
-import eu.fr.indyli.formation.business.dao.IUtilisateurDAO;
-import eu.fr.indyli.formation.business.entity.Alerte;
-import eu.fr.indyli.formation.business.entity.Utilisateur;
+import eu.fr.indyli.formation.business.dao.IEcolisAlertDAO;
+import eu.fr.indyli.formation.business.dao.IEcolisUserDAO;
+import eu.fr.indyli.formation.business.entity.EcolisAlert;
+import eu.fr.indyli.formation.business.entity.EcolisUser;
 import eu.fr.indyli.formation.business.utils.DateUtils;
 
 @SpringBootApplication
@@ -28,10 +28,10 @@ public class Application implements CommandLineRunner {
     private DataSource dataSource;
     
     @Autowired
-    IAlerteDAO alerteRepository;
+    IEcolisAlertDAO alerteRepository;
     
     @Autowired
-    IUtilisateurDAO userRepository;
+    IEcolisUserDAO userRepository;
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
@@ -44,24 +44,24 @@ public class Application implements CommandLineRunner {
         System.out.println("DATASOURCE = " + dataSource);
 
         System.out.println("\n1.findAll()...");
-        for (Alerte alerteTmp : alerteRepository.findAll()) {
+        for (EcolisAlert alerteTmp : alerteRepository.findAll()) {
             System.out.println(alerteTmp);
         }
         //Recuperation par ville de depart
         System.out.println("Recherche par ville de depart");
-        List<Alerte> listeVilleDep = this.alerteRepository.findByStartCity("Ndjamena, Tchad");
-        for (Alerte alerteTmp : listeVilleDep) {
+        List<EcolisAlert> listeVilleDep = this.alerteRepository.findByStartCity("Ndjamena, Tchad");
+        for (EcolisAlert alerteTmp : listeVilleDep) {
             System.out.println(alerteTmp);
         }
         
         //Recuperation par email et password
-        Utilisateur utilisateur = userRepository.findByLoginAndPassword("emmanuel.macron@gouv.fr", "macron");
-        System.out.println("User authentifié :" + utilisateur);
+        EcolisUser ecolisUser = userRepository.findByLoginAndPassword("emmanuel.macron@gouv.fr", "macron");
+        System.out.println("User authentifié :" + ecolisUser);
         //Recuperation Utilisateur ayant posté commentaire et annonces 
         System.out.println("Utilisateur ayant posté des commentaires et des annonces**************");
         Date datePivot = DateUtils.stringToDate("04/07/2015");
-		List<Utilisateur> liste = this.userRepository.findAuthorsCommentByDateAndPostedAnnonce(datePivot, "Douala");
-		for (Utilisateur userItem : liste) {
+		List<EcolisUser> liste = this.userRepository.findAuthorsCommentByDateAndPostedAnnonce(datePivot, "Douala");
+		for (EcolisUser userItem : liste) {
 			System.out.println(userItem);
 		}
 		
