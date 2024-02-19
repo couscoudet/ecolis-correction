@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -67,30 +68,6 @@ public class EcolisUserServiceImpl extends AbstractServiceImpl<EcolisUser, Ecoli
 	    return this.userDAO.findByEmail(email);
 	  }
 	
-	  /*@Override
-	  public Integer createUpdateUser(Utilisateur user) throws EcolisBusinessException {
-	    if (user.getIdUtilisateur() != null) {
-	      Utilisateur userInBase = this.userDAO.getOne(user.getIdUtilisateur());
-	      userInBase.setName(user.getName());
-	      userInBase.setLogin(user.getLogin());
-	      userInBase.setEmail(user.getEmail());
-	      userInBase.setTelephone(user.getTelephone());
-	      userInBase.setAnneeDeNaissance(user.getAnneeDeNaissance());
-	      user = userInBase;
-	    }
-	    // On verifie si l'email et le login n'existent pas déjà en base
-	    List<Utilisateur> listeUserExistantEnBaseAvecLoginOuEmail =
-	        this.userDAO.findByLoginOrEmail(user.getLogin(), user.getEmail());
-	    if (!listeUserExistantEnBaseAvecLoginOuEmail.isEmpty()) {
-	      throw new EcolisBusinessException("Le login :" + user.getLogin() + " Ou L'email :"
-	          + user.getEmail() + " semblent déjà pris");
-	    }
-	    String encryptPassword = bcryptEncoder.encode(user.getLogin());
-	    user.setPassword(encryptPassword);
-	    user = this.userDAO.saveAndFlush(user);
-	    return user.getIdUtilisateur();
-	  }*/
-	
 	  @Override
 	  public EcolisUser findByLogin(String login) throws EcolisBusinessException {
 	    return this.userDAO.findByLogin(login);
@@ -132,33 +109,17 @@ public class EcolisUserServiceImpl extends AbstractServiceImpl<EcolisUser, Ecoli
 
 	@Override
 	public EcolisUser update(EcolisUser user) throws EcolisBusinessException {
-		
 		Optional<EcolisUser> existingUserOptional  = this.userDAO.findById(user.getId());
-		
 	    if (existingUserOptional.isPresent()) {
 	    	EcolisUser existingUser = existingUserOptional.get();
-	    	
 	    	if(user.getPassword() != null && !user.getPassword().isEmpty()) {
-	    		
 			    existingUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-			    
 			    EcolisUser updatedUser = this.userDAO.saveAndFlush(existingUser);
 			    return updatedUser;
-			    
 	    	}else {
-	    		existingUser.setCivility(user.getCivility());
-	    		existingUser.setName(user.getName());
-	    		existingUser.setLogin(user.getLogin());
-	    		existingUser.setEmail(user.getEmail());
-	    		existingUser.setEnabled((byte) user.getEnabled());
-	    		existingUser.setLastConnection(user.getLastConnection());
-	    		existingUser.setYearOfBirth(user.getYearOfBirth());
-	    		existingUser.setPhone(user.getPhone());
-	    		existingUser.setRegistrationDate(user.getRegistrationDate());
-	    		
+	    		BeanUtils.copyProperties(user, existingUser);
 	    		return this.userDAO.saveAndFlush(existingUser); 
 	    	} 
-	    	
 	    }else {
 	    	throw new EcolisBusinessException("Utilisateur introuvable avec l'ID : " + user.getId());
 	    }
