@@ -1,7 +1,9 @@
 package eu.fr.insee.formation.business.service.test;
 
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
+
 import eu.fr.indyli.formation.business.config.EcolisBusinessConfig;
 import eu.fr.indyli.formation.business.dto.EcolisMessageFullDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
