@@ -2,7 +2,6 @@ package eu.fr.indyli.formation.business.ecolis.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import eu.fr.indyli.formation.business.dao.IEcolisMessageDAO;
 import eu.fr.indyli.formation.business.dto.EcolisMessageBasicDTO;
@@ -12,6 +11,7 @@ import eu.fr.indyli.formation.business.ecolis.service.IEcolisMessageService;
 import eu.fr.indyli.formation.business.entity.EcolisMessage;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesDAO;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesService;
+import jakarta.annotation.Resource;
 
 @Service(EcolisConstantesService.MESSAGE_SERVICE_KEY)
 public class EcolisMessageServiceImpl extends AbstractServiceImpl<EcolisMessage, EcolisMessageBasicDTO, EcolisMessageFullDTO, IEcolisMessageDAO> implements IEcolisMessageService {
