@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import eu.fr.indyli.formation.business.dao.IEcolisUserDAO;
 import eu.fr.indyli.formation.business.dto.EcolisUserBasicDTO;
 import eu.fr.indyli.formation.business.dto.EcolisUserFullDTO;
@@ -135,7 +136,15 @@ public class EcolisUserServiceImpl
 				EcolisUser updatedUser = this.userDAO.saveAndFlush(existingUser);
 				return updatedUser;
 			} else {
-				BeanUtils.copyProperties(user, existingUser);
+				existingUser.setCivility(user.getCivility());
+				existingUser.setName(user.getName());
+				existingUser.setLogin(user.getLogin());
+				existingUser.setEmail(user.getEmail());
+				existingUser.setEnabled(user.getEnabled());
+				existingUser.setLastConnection(user.getLastConnection());
+				existingUser.setYearOfBirth(user.getYearOfBirth());
+				existingUser.setPhone(user.getPhone());
+				existingUser.setRegistrationDate(user.getRegistrationDate());
 				return this.userDAO.saveAndFlush(existingUser);
 			}
 		} else {
