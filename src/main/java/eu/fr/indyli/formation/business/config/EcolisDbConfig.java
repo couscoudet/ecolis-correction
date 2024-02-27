@@ -1,8 +1,10 @@
 package eu.fr.indyli.formation.business.config;
 
-import javax.persistence.EntityManagerFactory;
+import java.util.HashMap;
+import java.util.Map;
 import javax.sql.DataSource;
 
+import org.hibernate.dialect.MySQL8Dialect;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -17,6 +19,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
 @EnableTransactionManagement
@@ -35,18 +38,21 @@ public class EcolisDbConfig {
 	}
 
 	@Primary
-	@Bean(name = "entityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean 
-	entityManagerFactory(
-			EntityManagerFactoryBuilder builder,
-			@Qualifier("dataSource") DataSource dataSource
-			) {
-		return builder
-				.dataSource(dataSource)
-				.packages("eu.fr.indyli.formation.business.entity")
-				.persistenceUnit("ecolis-unit-db")
-				.build();
-	}
+    @Bean(name = "entityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+            EntityManagerFactoryBuilder builder,
+            @Qualifier("dataSource") DataSource dataSource
+    ) {
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.dialect", MySQL8Dialect.class.getName()); // Spécifiez le dialecte Hibernate ici
+        
+        return builder
+                .dataSource(dataSource)
+                .packages("eu.fr.indyli.formation.business.entity")
+                .persistenceUnit("ecolis-unit-db")
+                .properties(properties) // Configurez les propriétés Hibernate ici
+                .build();
+    }
 
 	@Primary
 	@Bean(name = "transactionManager")

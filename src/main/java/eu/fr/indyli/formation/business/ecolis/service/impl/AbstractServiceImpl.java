@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +16,7 @@ import eu.fr.indyli.formation.business.dto.IDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
 import eu.fr.indyli.formation.business.ecolis.service.IAbstractServices;
 import eu.fr.indyli.formation.business.entity.IEntity;
+import jakarta.annotation.Resource;
 
 public abstract class AbstractServiceImpl<Entity extends IEntity, BasicDTO extends IDTO, FullDTO extends BasicDTO, IEntityDAO extends JpaRepository<Entity, Integer>> 
 implements IAbstractServices<Entity, BasicDTO, FullDTO, IEntityDAO> {
