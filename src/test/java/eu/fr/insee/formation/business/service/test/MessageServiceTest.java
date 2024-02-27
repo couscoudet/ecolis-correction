@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
+
 import eu.fr.indyli.formation.business.config.EcolisBusinessConfig;
 import eu.fr.indyli.formation.business.dto.EcolisMessageFullDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
