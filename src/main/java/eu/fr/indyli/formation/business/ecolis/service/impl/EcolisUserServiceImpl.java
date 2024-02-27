@@ -132,6 +132,15 @@ public class EcolisUserServiceImpl
 		if (existingUserOptional.isPresent()) {
 			EcolisUser existingUser = existingUserOptional.get();
 			if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+				existingUser.setCivility(user.getCivility());
+				existingUser.setName(user.getName());
+				existingUser.setLogin(user.getLogin());
+				existingUser.setEmail(user.getEmail());
+				existingUser.setEnabled(user.getEnabled());
+				existingUser.setLastConnection(user.getLastConnection());
+				existingUser.setYearOfBirth(user.getYearOfBirth());
+				existingUser.setPhone(user.getPhone());
+				existingUser.setRegistrationDate(user.getRegistrationDate());
 				existingUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 				EcolisUser updatedUser = this.userDAO.saveAndFlush(existingUser);
 				return updatedUser;
