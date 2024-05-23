@@ -18,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
@@ -26,6 +27,7 @@ import eu.fr.indyli.formation.business.config.EcolisBusinessConfig;
 import eu.fr.indyli.formation.business.dao.IEcolisUserDAO;
 import eu.fr.indyli.formation.business.dto.EcolisUserAdvertisingDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
+import eu.fr.indyli.formation.business.entity.EcolisAdvertising;
 import eu.fr.indyli.formation.business.entity.EcolisUser;
 import eu.fr.indyli.formation.business.utils.DateUtils;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesDAO;
@@ -82,7 +84,7 @@ public class UtilisateurDAOTest {
 			ecolisUser.setName("Abdou Zoyim Loti");
 			ecolisUser.setCivility("1");
 			ecolisUser.setEmail("abdou.loti@indyli-services.com");
-			ecolisUser.setEnabled((byte) 1);
+			ecolisUser.setEnabled(true);
 			ecolisUser.setLastConnection(new Date());
 			ecolisUser.setYearOfBirth(1992);
 			ecolisUser.setPhone("0398521647");
@@ -132,7 +134,7 @@ public class UtilisateurDAOTest {
 	  @Test
 	  public void testGetUserByEmailAndPassword() {
 	    bcryptEncoder = new BCryptPasswordEncoder();
-	    String login = "ema";
+	    String login = "amb";
 	    //String password = "macron";
 	    EcolisUser ecolisUser =
 	        userRepository.findByLogin(login);
@@ -152,6 +154,15 @@ public class UtilisateurDAOTest {
 	    Assert.assertTrue(!CollectionUtils.isEmpty(liste));
 	  }
 
+//	  @Test
+//	  public void testGetAllUserAvecAnnonces() throws EcolisBusinessException {
+//	    List<EcolisUser> liste = this.userRepository.getAllUtilisateurAvecAnnonces();
+//	    for (EcolisUser ecolisUserAdvertisingDTO : liste) {
+//	      System.out.println(ecolisUserAdvertisingDTO);
+//	    }
+//	    Assert.assertTrue(!CollectionUtils.isEmpty(liste));
+//	  }
+	  
 	  @Test
 	  public void testGetAllUserAvecAnnonces() throws EcolisBusinessException {
 	    List<EcolisUserAdvertisingDTO> liste = this.userRepository.getAllUtilisateurAvecAnnonces();
@@ -177,7 +188,7 @@ public class UtilisateurDAOTest {
 			ecolisUser.setName("Abdou Zoyim Loti");
 			ecolisUser.setCivility("1");
 			ecolisUser.setEmail("abdou.zoyim@indyli-services.com");
-			ecolisUser.setEnabled((byte) 1);
+			ecolisUser.setEnabled(true);
 			ecolisUser.setLastConnection(new Date());
 			ecolisUser.setYearOfBirth(1992);
 			ecolisUser.setPhone("0398521647");

@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -31,6 +32,7 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesSe
 @ContextConfiguration(classes={EcolisBusinessConfig.class})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
+//@ActiveProfiles("postgres")
 public class UtilisateurServiceTest {
 
 	@Resource(name = EcolisConstantesService.USER_SERVICE_KEY)

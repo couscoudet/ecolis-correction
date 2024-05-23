@@ -1,7 +1,7 @@
 spring:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5432/colis_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
-    username: postgres
+    jdbc-url: jdbc:postgresql://localhost:5432/colis-db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
+    username: root
     password: MerciBaba_10
     testWhileIdle: true
     validationQuery: SELECT 1
@@ -15,6 +15,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
       naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  profiles:
+     active: postgres
 
 logging:
   level:

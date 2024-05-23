@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import eu.fr.indyli.formation.business.dto.EcolisUserAdvertisingDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
+import eu.fr.indyli.formation.business.entity.EcolisAdvertising;
 import eu.fr.indyli.formation.business.entity.EcolisUser;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes;
 
@@ -37,6 +38,13 @@ public interface IEcolisUserDAO extends JpaRepository<EcolisUser, Integer>{
     
     //@Query(value = "SELECT * FROM User WHERE LOGIN = ?1", nativeQuery = true)
     public EcolisUser findByLogin(String login);
+    
+//    @Query(nativeQuery = true, value = "SELECT u.id_utilisateur as userId, u.name as name, COUNT(a.id_annonce) as nbAnnouncements " +
+//            "FROM Utilisateur u " +
+//            "INNER JOIN Annonce a ON a.id_utilisateur = u.id_utilisateur " +
+//            "GROUP BY u.id_utilisateur, u.name")
+   // @Query(name="findUserAndAnnoncesCreatedQuery", nativeQuery = true)
+    //public List<EcolisUser> getAllUtilisateurAvecAnnonces() throws EcolisBusinessException;
     
     @Query(name="findUserAndAnnoncesCreatedQuery", nativeQuery = true)
     public List<EcolisUserAdvertisingDTO> getAllUtilisateurAvecAnnonces() throws EcolisBusinessException;

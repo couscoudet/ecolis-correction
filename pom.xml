@@ -53,6 +53,13 @@
 		    <artifactId>mysql-connector-java</artifactId>
 		    <version>8.0.28</version> <!-- Spécifiez la version ici -->
 		</dependency>
+		
+		<!-- Driver de connexion à la base PosgresSQL -->
+		<dependency>
+	      <groupId>org.postgresql</groupId>
+	      <artifactId>postgresql</artifactId>
+	      <scope>runtime</scope>
+	    </dependency>
 
 		<!-- Pour les annotations de la JSR250 -->
 		<dependency>
