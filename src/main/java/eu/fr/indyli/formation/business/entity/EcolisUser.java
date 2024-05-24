@@ -41,7 +41,7 @@ import eu.fr.indyli.formation.business.dto.EcolisUserAdvertisingDTO;
                     @ColumnResult(name = "userId",type=Integer.class),
                     @ColumnResult(name = "name",type = String.class),
                     @ColumnResult(name = "nbAnnouncements", type = Integer.class)}))
-@NamedNativeQuery(name="findUserAndAnnoncesCreatedQuery",query="SELECT u.id_utilisateur as userId,u.name as name,COUNT(a.id_annonce) as nbAnnouncements FROM Utilisateur u INNER join Annonce a on a.id_utilisateur = u.id_utilisateur  group by a.id_utilisateur"
+@NamedNativeQuery(name="findUserAndAnnoncesCreatedQuery",query="SELECT u.id_utilisateur as userId,u.name as name,COUNT(a.id_annonce) as nbAnnouncements FROM Utilisateur u INNER join Annonce a on a.id_utilisateur = u.id_utilisateur  group by a.id_utilisateur, u.id_utilisateur"
 ,resultSetMapping="utilisateurAnnonceMapping")
 public class EcolisUser implements IEntity {
 
@@ -71,7 +71,7 @@ public class EcolisUser implements IEntity {
 	private String email;
 	
 	@Column(name = "enabled", nullable = false)
-	private byte enabled;
+	private boolean enabled;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "derniere_connexion", length = 19)
@@ -152,11 +152,11 @@ public class EcolisUser implements IEntity {
 		this.email = email;
 	}
 
-	public byte getEnabled() {
+	public boolean getEnabled() {
 		return this.enabled;
 	}
 
-	public void setEnabled(byte enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 

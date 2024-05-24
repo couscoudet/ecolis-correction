@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
@@ -23,6 +24,7 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesSe
 @ContextConfiguration(classes = {EcolisBusinessConfig.class})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
+@ActiveProfiles("postgres")
 public class MessageServiceTest {
 
 	  @Resource(name = EcolisConstantesService.MESSAGE_SERVICE_KEY)
@@ -53,7 +55,7 @@ public class MessageServiceTest {
 	
 	  @Test
 	  public void testRecupAllMessageByEmailId() throws EcolisBusinessException {
-	    List<EcolisMessage> msgList = this.msgServiceAvecAnnonce.getMessageByEmailUser("czome@yahoo.fr");
+	    List<EcolisMessage> msgList = this.msgServiceAvecAnnonce.getMessageByEmailUser("christophe.zome@indyli-services.com");
 	    for (EcolisMessage ecolisMessage : msgList) {
 	      System.out.println(ecolisMessage);
 	    }
