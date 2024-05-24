@@ -5,7 +5,7 @@ spring:
   datasource:
     jdbc-url: jdbc:mysql://localhost:3306/bd_colis_esic?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
     username: root
-    password: Indyli@2023
+    password: 
     testWhileIdle: true
     validationQuery: SELECT 1
 
