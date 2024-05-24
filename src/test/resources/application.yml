@@ -1,8 +1,11 @@
 spring:
+  main:
+    banner-mode: off
+
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5432/colis_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
-    username: postgres
-    password: MerciBaba_10
+    jdbc-url: jdbc:mysql://localhost:3306/bd_colis_esic?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 
     testWhileIdle: true
     validationQuery: SELECT 1
 
@@ -10,9 +13,7 @@ spring:
     database: default
     properties:
       hibernate:
-        ddl-auto: update
         show_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
       naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
