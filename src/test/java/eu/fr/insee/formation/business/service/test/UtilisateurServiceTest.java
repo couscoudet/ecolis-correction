@@ -32,7 +32,7 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesSe
 @ContextConfiguration(classes={EcolisBusinessConfig.class})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-//@ActiveProfiles("postgres")
+@ActiveProfiles("postgres")
 public class UtilisateurServiceTest {
 
 	@Resource(name = EcolisConstantesService.USER_SERVICE_KEY)
@@ -113,7 +113,7 @@ public class UtilisateurServiceTest {
 	@Test
 	public void testGetUserByEmail() throws EcolisBusinessException{
 		 //Recuperation par email
-        EcolisUser ecolisUser = userService.findByEmail("emmanuel.macron@gouv.fr");
+        EcolisUser ecolisUser = userService.findByEmail("christophe.zome@indyli-services.com");
         System.out.println("User authentifié :" + ecolisUser);
         Assert.assertTrue(ecolisUser != null);
 	}

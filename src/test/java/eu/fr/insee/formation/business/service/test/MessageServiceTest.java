@@ -24,7 +24,7 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesSe
 @ContextConfiguration(classes = {EcolisBusinessConfig.class})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-//@ActiveProfiles("postgres")
+@ActiveProfiles("postgres")
 public class MessageServiceTest {
 
 	  @Resource(name = EcolisConstantesService.MESSAGE_SERVICE_KEY)
@@ -55,7 +55,7 @@ public class MessageServiceTest {
 	
 	  @Test
 	  public void testRecupAllMessageByEmailId() throws EcolisBusinessException {
-	    List<EcolisMessage> msgList = this.msgServiceAvecAnnonce.getMessageByEmailUser("czome@yahoo.fr");
+	    List<EcolisMessage> msgList = this.msgServiceAvecAnnonce.getMessageByEmailUser("christophe.zome@indyli-services.com");
 	    for (EcolisMessage ecolisMessage : msgList) {
 	      System.out.println(ecolisMessage);
 	    }

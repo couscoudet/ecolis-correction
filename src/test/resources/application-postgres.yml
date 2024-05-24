@@ -1,4 +1,7 @@
 spring:
+  config:
+    activate:
+      on-profile: postgres
   datasource:
     jdbc-url: jdbc:postgresql://localhost:5432/bd_colis_esic_postgres?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
     username: postgres

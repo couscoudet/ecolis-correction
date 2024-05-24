@@ -36,6 +36,7 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesDA
 @ContextConfiguration(classes = {EcolisBusinessConfig.class})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
+@ActiveProfiles("postgres")
 public class UtilisateurDAOTest {
 
 	@Resource(name = EcolisConstantesDAO.USER_DAO_KEY)

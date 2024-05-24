@@ -24,7 +24,7 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesDA
 @ContextConfiguration(classes = {EcolisBusinessConfig.class})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-//@ActiveProfiles("postgres")
+@ActiveProfiles("postgres")
 public class AnnonceDAOTest {
 
 	@PersistenceContext
