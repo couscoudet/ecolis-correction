@@ -3,9 +3,9 @@ spring:
     activate:
       on-profile: postgres
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5432/bd_colis_esic_postgres?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
-    username: postgres
-    password: MerciBaba_10
+    jdbc-url: jdbc:postgresql://localhost:5432/ecolis_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
+    username: indyli_user_db
+    password: Indyli_pass_&!#
     testWhileIdle: true
     validationQuery: SELECT 1
 

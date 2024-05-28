@@ -55,7 +55,7 @@ public class MessageServiceTest {
 	
 	  @Test
 	  public void testRecupAllMessageByEmailId() throws EcolisBusinessException {
-	    List<EcolisMessage> msgList = this.msgServiceAvecAnnonce.getMessageByEmailUser("christophe.zome@indyli-services.com");
+	    List<EcolisMessage> msgList = this.msgServiceAvecAnnonce.getMessageByEmailUser("czome@yahoo.fr");
 	    for (EcolisMessage ecolisMessage : msgList) {
 	      System.out.println(ecolisMessage);
 	    }

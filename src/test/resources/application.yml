@@ -3,7 +3,7 @@ spring:
     banner-mode: off
 
   datasource:
-    jdbc-url: jdbc:mysql://localhost:3306/bd_colis_esic?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
+    jdbc-url: jdbc:mysql://localhost:3306/ecolis_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
     username: root
     password: 
     testWhileIdle: true

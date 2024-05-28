@@ -113,7 +113,7 @@ public class UtilisateurServiceTest {
 	@Test
 	public void testGetUserByEmail() throws EcolisBusinessException{
 		 //Recuperation par email
-        EcolisUser ecolisUser = userService.findByEmail("christophe.zome@indyli-services.com");
+        EcolisUser ecolisUser = userService.findByEmail("czome@yahoo.fr");
         System.out.println("User authentifié :" + ecolisUser);
         Assert.assertTrue(ecolisUser != null);
 	}
