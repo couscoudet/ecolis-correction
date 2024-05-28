@@ -1,7 +1,7 @@
 spring:
   config:
     activate:
-      on-profile: postgres
+      on-profile: postgresql
   datasource:
     jdbc-url: jdbc:postgresql://localhost:5432/ecolis_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull
     username: indyli_user_db
