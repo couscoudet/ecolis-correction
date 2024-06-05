@@ -55,7 +55,7 @@ public class EcolisUser implements IEntity {
 	@Column(name = "id_utilisateur", unique = true, nullable = false)
 	private Integer userId;
 	
-	@Column(name = "civilite", nullable = false, length = 2)
+	@Column(name = "civilite", nullable = true, length = 2)
 	private String civility;
 	
 	@Column(name = "name")

@@ -24,7 +24,7 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesSe
 @ContextConfiguration(classes = {EcolisBusinessConfig.class})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@ActiveProfiles("postgres")
+@ActiveProfiles("mysql")
 public class MessageServiceTest {
 
 	  @Resource(name = EcolisConstantesService.MESSAGE_SERVICE_KEY)
