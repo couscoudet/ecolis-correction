@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import eu.fr.indyli.formation.business.dao.IEcolisMessageDAO;
 import eu.fr.indyli.formation.business.dto.EcolisMessageBasicDTO;
 import eu.fr.indyli.formation.business.dto.EcolisMessageFullDTO;
+import eu.fr.indyli.formation.business.dto.EcolisUserBasicDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
 import eu.fr.indyli.formation.business.ecolis.service.IEcolisMessageService;
 import eu.fr.indyli.formation.business.entity.EcolisMessage;
@@ -29,11 +30,13 @@ public class EcolisMessageServiceImpl extends AbstractServiceImpl<EcolisMessage,
 	}
 
 	  @Override
-	  public List<EcolisMessage> getMessageByEmailUser(String email) throws EcolisBusinessException {
+	  public List<EcolisMessageBasicDTO> getMessageByEmailUser(String email) throws EcolisBusinessException {
 	    // TODO Auto-generated method stub
 	    List<EcolisMessage> msgList = this.ecolisMessageDAO.getMessageByEmailUser(email);
 	    msgList = this.removeAttachedUsers(msgList);
-	    return msgList;
+	    return msgList.stream()
+                .map(user -> this.getModelMapper().map(user, EcolisMessageBasicDTO.class))
+                .collect(Collectors.toList());
 	  }
 	
 	  private List<EcolisMessage> removeAttachedUsers(List<EcolisMessage> msgList) {

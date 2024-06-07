@@ -51,12 +51,12 @@ public class UtilisateurServiceTest {
 		user.setName("Abdou Zoyim Loti");
 		user.setCivility("1");
 		user.setEmail("abdou.loti@indyli-services.com");
-		user.setEnabled((byte) 1);
+		user.setEnabled(true);
 		user.setLastConnection(new Date());
 		user.setYearOfBirth(1992);
 		user.setPhone("0398521647");
 		user.setRegistrationDate(new Date());
-		user.setLogin("loti");
+		user.setLogin("loti02");
 		String encryptPassword = bcryptEncoder.encode("1234");
 		user.setPassword(encryptPassword);
 		
@@ -113,7 +113,7 @@ public class UtilisateurServiceTest {
 	@Test
 	public void testGetUserByEmail() throws EcolisBusinessException{
 		 //Recuperation par email
-        EcolisUser ecolisUser = userService.findByEmail("czome@yahoo.fr");
+        EcolisUserBasicDTO ecolisUser = userService.findByEmail("jean@jean.com");
         System.out.println("User authentifié :" + ecolisUser);
         Assert.assertTrue(ecolisUser != null);
 	}
@@ -125,7 +125,7 @@ public class UtilisateurServiceTest {
 		user.setName("Abdou Zoyim Loti");
 		user.setCivility("1");
 		user.setEmail("abdou.zoyim@indyli-services.com");
-		user.setEnabled((byte) 1);
+		user.setEnabled(true);
 		user.setLastConnection(new Date());
 		user.setYearOfBirth(1992);
 		user.setPhone("0398521647");

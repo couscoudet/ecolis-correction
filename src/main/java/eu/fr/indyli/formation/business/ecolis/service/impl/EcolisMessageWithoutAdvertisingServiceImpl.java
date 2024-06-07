@@ -1,6 +1,8 @@
 package eu.fr.indyli.formation.business.ecolis.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import eu.fr.indyli.formation.business.dao.IEcolisMessageDAO;
 import eu.fr.indyli.formation.business.dto.EcolisMessageBasicDTO;
@@ -29,13 +31,15 @@ public class EcolisMessageWithoutAdvertisingServiceImpl extends AbstractServiceI
   }
 
   @Override
-  public List<EcolisMessage> getMessageByEmailUser(String email) throws EcolisBusinessException {
+  public List<EcolisMessageBasicDTO> getMessageByEmailUser(String email) throws EcolisBusinessException {
     // TODO Auto-generated method stub
     List<EcolisMessage> msgList = this.ecolisMessageDAO.getMessageByEmailUser(email);
     for (EcolisMessage ecolisMessage : msgList) {
       ecolisMessage.setUser(null);
     }
-    return msgList;
+    return msgList.stream()
+            .map(user -> this.getModelMapper().map(user, EcolisMessageBasicDTO.class))
+            .collect(Collectors.toList());
   }
 
 }

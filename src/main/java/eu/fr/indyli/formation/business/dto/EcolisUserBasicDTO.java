@@ -14,7 +14,7 @@ public class EcolisUserBasicDTO implements IDTO {
 	private String login;
 	private String password;
 	private String email;
-	private byte enabled;
+	private boolean enabled;
 	private Date lastConnection;
 	private int yearOfBirth;
 	private String phone;
@@ -70,11 +70,11 @@ public class EcolisUserBasicDTO implements IDTO {
 		this.email = email;
 	}
 	
-	public byte getEnabled() {
+	public boolean getEnabled() {
 		return enabled;
 	}
 	
-	public void setEnabled(byte enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 	

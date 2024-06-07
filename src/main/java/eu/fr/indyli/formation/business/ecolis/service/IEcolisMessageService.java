@@ -20,6 +20,6 @@ public interface IEcolisMessageService extends IAbstractServices<EcolisMessage, 
    * @param email
    * @throws EcolisBusinessException
    */
-  List<EcolisMessage> getMessageByEmailUser(String email) throws EcolisBusinessException;
+  List<EcolisMessageBasicDTO> getMessageByEmailUser(String email) throws EcolisBusinessException;
 
 }

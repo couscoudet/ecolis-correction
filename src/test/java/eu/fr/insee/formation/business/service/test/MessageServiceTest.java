@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
 
 import eu.fr.indyli.formation.business.config.EcolisBusinessConfig;
+import eu.fr.indyli.formation.business.dto.EcolisMessageBasicDTO;
 import eu.fr.indyli.formation.business.dto.EcolisMessageFullDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
 import eu.fr.indyli.formation.business.ecolis.service.IEcolisMessageService;
@@ -24,7 +25,7 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesSe
 @ContextConfiguration(classes = {EcolisBusinessConfig.class})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@ActiveProfiles("mysql")
+@ActiveProfiles("postgresql")
 public class MessageServiceTest {
 
 	  @Resource(name = EcolisConstantesService.MESSAGE_SERVICE_KEY)
@@ -55,8 +56,8 @@ public class MessageServiceTest {
 	
 	  @Test
 	  public void testRecupAllMessageByEmailId() throws EcolisBusinessException {
-	    List<EcolisMessage> msgList = this.msgServiceAvecAnnonce.getMessageByEmailUser("czome@yahoo.fr");
-	    for (EcolisMessage ecolisMessage : msgList) {
+	    List<EcolisMessageBasicDTO> msgList = this.msgServiceAvecAnnonce.getMessageByEmailUser("czome@yahoo.fr");
+	    for (EcolisMessageBasicDTO ecolisMessage : msgList) {
 	      System.out.println(ecolisMessage);
 	    }
 	    Assert.assertTrue(!CollectionUtils.isEmpty(msgList));

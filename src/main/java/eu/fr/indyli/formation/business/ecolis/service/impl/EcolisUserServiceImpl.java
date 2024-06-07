@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,28 +47,33 @@ public class EcolisUserServiceImpl
 	}
 
 	@Override
-	public EcolisUser findByLoginAndPassword(String email, String password) throws EcolisBusinessException {
+	public EcolisUserBasicDTO findByLoginAndPassword(String email, String password) throws EcolisBusinessException {
 		if (StringUtils.isBlank(email) || StringUtils.isBlank(password)) {
 			throw new EcolisBusinessException("VOUS DEVEZ RENSEINGER LES 2 CHAMPS");
 		}
 		EcolisUser foundUser = userDAO.findByLoginAndPassword(email, password);
-		return foundUser;
+		return this.getModelMapper().map(foundUser, EcolisUserBasicDTO.class);
 	}
 
 	@Override
-	public List<EcolisUser> findAuthorsCommentByDateAndPostedAnnonce(Date paramDatePivot, String paramVilleArrivee)
+	public List<EcolisUserBasicDTO> findAuthorsCommentByDateAndPostedAnnonce(Date paramDatePivot, String paramVilleArrivee)
 			throws EcolisBusinessException {
 		if (StringUtils.isBlank(paramVilleArrivee) || paramDatePivot == null) {
 			throw new EcolisBusinessException("VOUS DEVEZ RENSEINGER LES 2 CHAMPS");
 		}
-		return userDAO.findAuthorsCommentByDateAndPostedAnnonce(paramDatePivot, paramVilleArrivee);
+		
+		List<EcolisUser> users = userDAO.findAuthorsCommentByDateAndPostedAnnonce(paramDatePivot, paramVilleArrivee);
+		return users.stream()
+                .map(user -> this.getModelMapper().map(user, EcolisUserBasicDTO.class))
+                .collect(Collectors.toList());
 	}
 
 	@Override
-	public EcolisUser findByEmail(String email) throws EcolisBusinessException {
+	public EcolisUserBasicDTO findByEmail(String email) throws EcolisBusinessException {
 		if (StringUtils.isBlank(email))
 			throw new EcolisBusinessException("VOUS DEVEZ RENSEINGER L'EMAIL");
-		return this.userDAO.findByEmail(email);
+		EcolisUser user =  this.userDAO.findByEmail(email);
+		return this.getModelMapper().map(user, EcolisUserBasicDTO.class);
 	}
 
 	/*
@@ -89,8 +95,9 @@ public class EcolisUserServiceImpl
 	 */
 
 	@Override
-	public EcolisUser findByLogin(String login) throws EcolisBusinessException {
-		return this.userDAO.findByLogin(login);
+	public EcolisUserBasicDTO findByLogin(String login) throws EcolisBusinessException {
+		EcolisUser user =  this.userDAO.findByLogin(login);
+		return this.getModelMapper().map(user, EcolisUserBasicDTO.class);
 	}
 
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
@@ -108,12 +115,15 @@ public class EcolisUserServiceImpl
 	}
 
 	@Override
-	public List<EcolisUser> findByLoginOrEmail(String login, String email) throws EcolisBusinessException {
-		return this.userDAO.findByLoginOrEmail(login, email);
+	public List<EcolisUserBasicDTO> findByLoginOrEmail(String login, String email) throws EcolisBusinessException {
+		List<EcolisUser> users =  this.userDAO.findByLoginOrEmail(login, email);
+		return users.stream()
+                .map(user -> this.getModelMapper().map(user, EcolisUserBasicDTO.class))
+                .collect(Collectors.toList());
 	}
 
 	@Override
-	public EcolisUser create(EcolisUser user) throws EcolisBusinessException {
+	public EcolisUserFullDTO create(EcolisUserFullDTO user) throws EcolisBusinessException {
 		// On verifie si l'email et le login n'existent pas déjà en base
 		List<EcolisUser> listeUserExistantEnBaseAvecLoginOuEmail = this.userDAO.findByLoginOrEmail(user.getLogin(),
 				user.getEmail());
@@ -121,13 +131,15 @@ public class EcolisUserServiceImpl
 			throw new EcolisBusinessException(
 					"Le login :" + user.getLogin() + " Ou L'email :" + user.getEmail() + " semblent déjà pris");
 		}
+		EcolisUser userEntity = this.getModelMapper().map(user, EcolisUser.class);
 		String encryptPassword = bcryptEncoder.encode(user.getPassword());
-		user.setPassword(encryptPassword);
-		return this.userDAO.save(user);
+		userEntity.setPassword(encryptPassword);
+		EcolisUser savedUser = this.userDAO.save(userEntity);
+		return this.getModelMapper().map(savedUser, EcolisUserFullDTO.class);
 	}
 
 	@Override
-	public EcolisUser update(EcolisUser user) throws EcolisBusinessException {
+	public EcolisUserFullDTO update(EcolisUserFullDTO user) throws EcolisBusinessException {
 		Optional<EcolisUser> existingUserOptional = this.userDAO.findById(user.getId());
 		if (existingUserOptional.isPresent()) {
 			EcolisUser existingUser = existingUserOptional.get();
@@ -143,7 +155,7 @@ public class EcolisUserServiceImpl
 				existingUser.setRegistrationDate(user.getRegistrationDate());
 				existingUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 				EcolisUser updatedUser = this.userDAO.saveAndFlush(existingUser);
-				return updatedUser;
+				return this.getModelMapper().map(updatedUser, EcolisUserFullDTO.class);
 			} else {
 				existingUser.setCivility(user.getCivility());
 				existingUser.setName(user.getName());
@@ -154,7 +166,8 @@ public class EcolisUserServiceImpl
 				existingUser.setYearOfBirth(user.getYearOfBirth());
 				existingUser.setPhone(user.getPhone());
 				existingUser.setRegistrationDate(user.getRegistrationDate());
-				return this.userDAO.saveAndFlush(existingUser);
+				EcolisUser updatedUser =  this.userDAO.saveAndFlush(existingUser);
+				return this.getModelMapper().map(updatedUser, EcolisUserFullDTO.class);
 			}
 		} else {
 			throw new EcolisBusinessException("Utilisateur introuvable avec l'ID : " + user.getId());
