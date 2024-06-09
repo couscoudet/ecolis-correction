@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.annotation.Resource;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,8 +23,8 @@ import eu.fr.indyli.formation.business.dto.EcolisUserBasicDTO;
 import eu.fr.indyli.formation.business.dto.EcolisUserFullDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
 import eu.fr.indyli.formation.business.ecolis.service.IEcolisUserService;
-import eu.fr.indyli.formation.business.entity.EcolisUser;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesService;
+import jakarta.annotation.Resource;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes={EcolisBusinessConfig.class})

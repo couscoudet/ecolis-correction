@@ -27,7 +27,6 @@ import eu.fr.indyli.formation.business.config.EcolisBusinessConfig;
 import eu.fr.indyli.formation.business.dao.IEcolisUserDAO;
 import eu.fr.indyli.formation.business.dto.EcolisUserAdvertisingDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
-import eu.fr.indyli.formation.business.entity.EcolisAdvertising;
 import eu.fr.indyli.formation.business.entity.EcolisUser;
 import eu.fr.indyli.formation.business.utils.DateUtils;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesDAO;
@@ -36,7 +35,7 @@ import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesDA
 @ContextConfiguration(classes = {EcolisBusinessConfig.class})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@ActiveProfiles("h2")
+@ActiveProfiles("mysql")
 public class UtilisateurDAOTest {
 
 	@Resource(name = EcolisConstantesDAO.USER_DAO_KEY)

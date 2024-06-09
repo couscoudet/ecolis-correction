@@ -1,12 +1,14 @@
 package eu.fr.indyli.formation.business.entity;
 // Generated 25 juin 2017 02:21:10 by Hibernate Tools 5.2.0.CR1
 
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
-import static jakarta.persistence.GenerationType.IDENTITY;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

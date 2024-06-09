@@ -1,9 +1,7 @@
 package eu.fr.insee.formation.business.dao.test;
 
 import java.util.List;
-import jakarta.annotation.Resource;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,17 +12,21 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.CollectionUtils;
+
 import eu.fr.indyli.formation.business.config.EcolisBusinessConfig;
 import eu.fr.indyli.formation.business.dao.IEcolisAdvertisingDAO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
 import eu.fr.indyli.formation.business.entity.EcolisAdvertising;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesDAO;
+import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {EcolisBusinessConfig.class})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@ActiveProfiles("postgresql")
+@ActiveProfiles("mysql")
 public class AnnonceDAOTest {
 
 	@PersistenceContext

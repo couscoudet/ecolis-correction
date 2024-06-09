@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+
 import eu.fr.indyli.formation.business.dao.IEcolisMessageDAO;
 import eu.fr.indyli.formation.business.dto.EcolisMessageBasicDTO;
 import eu.fr.indyli.formation.business.dto.EcolisMessageFullDTO;

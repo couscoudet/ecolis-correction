@@ -1,7 +1,7 @@
 package eu.fr.insee.formation.business.service.test;
 
 import java.util.List;
-import jakarta.annotation.Resource;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,14 +18,14 @@ import eu.fr.indyli.formation.business.dto.EcolisMessageBasicDTO;
 import eu.fr.indyli.formation.business.dto.EcolisMessageFullDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
 import eu.fr.indyli.formation.business.ecolis.service.IEcolisMessageService;
-import eu.fr.indyli.formation.business.entity.EcolisMessage;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes.EcolisConstantesService;
+import jakarta.annotation.Resource;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {EcolisBusinessConfig.class})
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@ActiveProfiles("postgresql")
+@ActiveProfiles("mysql")
 public class MessageServiceTest {
 
 	  @Resource(name = EcolisConstantesService.MESSAGE_SERVICE_KEY)

@@ -2,6 +2,7 @@ package eu.fr.indyli.formation.business.config;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.hibernate.dialect.MySQL8Dialect;
@@ -19,6 +20,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
@@ -29,7 +31,6 @@ import jakarta.persistence.EntityManagerFactory;
 		)
 @ComponentScan(basePackages="eu.fr.indyli.formation.business.ecolis.service")
 public class EcolisDbConfig {
-
 	@Primary
 	@Bean(name = "dataSource")
 	@ConfigurationProperties(prefix = "spring.datasource")
@@ -62,7 +63,6 @@ public class EcolisDbConfig {
 			) {
 		return new JpaTransactionManager(entityManagerFactory);
 	}
-	
     @Bean(name = "passwordEncoderBean")
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import eu.fr.indyli.formation.business.dto.EcolisUserAdvertisingDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.ColumnResult;
 import jakarta.persistence.ConstructorResult;
@@ -21,10 +24,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.UniqueConstraint;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
-import eu.fr.indyli.formation.business.dto.EcolisUserAdvertisingDTO;
 
 
 

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import eu.fr.indyli.formation.business.dto.EcolisUserAdvertisingDTO;
 import eu.fr.indyli.formation.business.ecolis.exception.EcolisBusinessException;
-import eu.fr.indyli.formation.business.entity.EcolisAdvertising;
 import eu.fr.indyli.formation.business.entity.EcolisUser;
 import eu.fr.indyli.formation.business.utils.EcolisConstantes;
 

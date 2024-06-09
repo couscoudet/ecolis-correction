@@ -143,7 +143,7 @@ public class EcolisUserServiceImpl
 		Optional<EcolisUser> existingUserOptional = this.userDAO.findById(user.getId());
 		if (existingUserOptional.isPresent()) {
 			EcolisUser existingUser = existingUserOptional.get();
-			if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+			if (!StringUtils.isBlank(user.getPassword())) {
 				existingUser.setCivility(user.getCivility());
 				existingUser.setName(user.getName());
 				existingUser.setLogin(user.getLogin());
